@@ -46,13 +46,13 @@ app.post('/insertInfo', (req, res) => {
     const info = req.body;
     if (isEmpty(info)) {
         console.log( "Preencha todos os campos" );
-        res.status(400).json({ msg: "Preencha todos os campos", status: false });
+        res.status(400).json({ msg: "Preencha todos os campos", status: false, alertColor: "rgba(255, 242, 0)" });
     } else {
-        conn.query(queryString, [info.nome, info.sobrenome, info.participacao], ( err, rows, fields ) => {
+        conn.query(queryString, [info.nome, info.sobreNome, info.participacao], ( err, rows, fields ) => {
             if (err) {
-                res.status(500).json({ msg: "Ocorreu um erro ao tentar inserir no banco de dados", erro: err, status: false });
+                res.status(500).json({ msg: "Ocorreu um erro ao tentar inserir no banco de dados", erro: err, status: false, alertColor: "rgba(255, 0, 0)" });
             } else {
-                res.status(200).json({ msg: "Dados inseridos com sucesso", status: true });
+                res.status(200).json({ msg: "Dados inseridos com sucesso", status: true, alertColor: "rgba(0, 255, 68)" });
             }
         });
     }
@@ -62,9 +62,9 @@ app.get('/getInfo', (req, res) => {
     const queryString = 'select * from information';
     conn.query(queryString, ( err, rows, fields ) => {
         if (err) {
-            res.status(500).json({ msg: "Ocorreu um erro ao tentar inserir no banco de dados", erro: err, status: false });
+            res.status(500).json({ msg: "Ocorreu um erro ao tentar inserir no banco de dados", erro: err, status: false, alertColor: "rgba(255, 0, 0)" });
         } else {
-            res.status(200).json({ msg: "Informações do banco de dados", infos: rows, status: true });            
+            res.status(200).json({ msg: "Informações do banco de dados", infos: rows, status: true, alertColor: "rgba(0, 255, 68)" });            
         }
     });
 });
